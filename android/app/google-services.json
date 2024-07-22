@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "900588325401",
+    "project_id": "hackathon-project-4dca0",
+    "storage_bucket": "hackathon-project-4dca0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:900588325401:android:044d568084dd20eba27888",
+        "android_client_info": {
+          "package_name": "com.vicktor.hackathanproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "900588325401-q07bpd5ae783341u17vlocnb8rlhqhau.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vicktor.hackathanproject",
+            "certificate_hash": "f5fec9f409d7e06f28edcbc13bdd021396149704"
+          }
+        },
+        {
+          "client_id": "900588325401-qi437bl2otc6u073rh1ruu8jk4q4mfl8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA01mNXKZrtTW6I7DX5iy7_FoylWf4YswA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "900588325401-qi437bl2otc6u073rh1ruu8jk4q4mfl8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "900588325401-3c3m9q3hshtakud44o1aa8psg2p94ln1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.hackathanproject"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
