@@ -27,7 +27,7 @@ class _AddCategoryState extends State<AddCategory> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: isLoading
-          ? Loading()
+          ? const Loading()
           : SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -37,12 +37,12 @@ class _AddCategoryState extends State<AddCategory> {
                       key: _formKey,
                       child: Column(
                         children: [
-                          SizedBox(height: 50),
+                          const SizedBox(height: 50),
                           Text(
                             'Add Category',
                             style: AppTextStyle.body(size: 30),
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           GestureDetector(
                             onTap: () async {
                               showDialog(
@@ -80,7 +80,7 @@ class _AddCategoryState extends State<AddCategory> {
                                                         size: 14,
                                                         color:
                                                             AppColor.black))),
-                                            SizedBox(width: 60),
+                                            const SizedBox(width: 60),
                                             ElevatedButton(
                                                 style: ElevatedButton.styleFrom(
                                                   backgroundColor:
@@ -132,7 +132,7 @@ class _AddCategoryState extends State<AddCategory> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 50),
+                          const SizedBox(height: 50),
                           TextFormField(
                             controller: categoryName,
                             validator: (data) {
@@ -149,11 +149,12 @@ class _AddCategoryState extends State<AddCategory> {
                                 hintStyle: AppTextStyle.body(
                                     size: 13, fontWeight: FontWeight.normal),
                                 filled: true,
-                                fillColor: Color.fromARGB(255, 243, 242, 242),
+                                fillColor:
+                                    const Color.fromARGB(255, 243, 242, 242),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8))),
                           ),
-                          SizedBox(height: 30),
+                          const SizedBox(height: 30),
                           TextFormField(
                             validator: (data) {
                               if (data == null || data.isEmpty) {
@@ -171,11 +172,12 @@ class _AddCategoryState extends State<AddCategory> {
                                 hintStyle: AppTextStyle.body(
                                     size: 13, fontWeight: FontWeight.normal),
                                 filled: true,
-                                fillColor: Color.fromARGB(255, 243, 242, 242),
+                                fillColor:
+                                    const Color.fromARGB(255, 243, 242, 242),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8))),
                           ),
-                          SizedBox(height: 70),
+                          const SizedBox(height: 70),
                           AppButton(
                               text: 'Submit',
                               onTap: () async {
@@ -197,7 +199,7 @@ class _AddCategoryState extends State<AddCategory> {
                                   }
                                 }
                               }),
-                          SizedBox(height: 70),
+                          const SizedBox(height: 70),
                         ],
                       ),
                     ),

@@ -1,28 +1,62 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 class UserModel {
   final String email;
   final String profilePic;
-  UserModel({required this.email, required this.profilePic});
+  final bool seller;
+  UserModel({
+    required this.email,
+    required this.profilePic,
+    required this.seller,
+  });
+
+  UserModel copyWith({
+    String? email,
+    String? profilePic,
+    bool? seller,
+  }) {
+    return UserModel(
+      email: email ?? this.email,
+      profilePic: profilePic ?? this.profilePic,
+      seller: seller ?? this.seller,
+    );
+  }
 
   Map<String, dynamic> toMap() {
-    return {
+    return <String, dynamic>{
       'email': email,
       'profilePic': profilePic,
+      'seller': seller,
     };
   }
 
-  static UserModel? fromMap(Map<String, dynamic>? user) {
-    if (user == null) return null;
-    try {
-      return UserModel(email: user['email'], profilePic: user['profilePic']);
-    } catch (e) {
-      return null;
-    }
+  factory UserModel.fromMap(Map<String, dynamic> map) {
+    return UserModel(
+      email: map['email'] as String,
+      profilePic: map['profilePic'] as String,
+      seller: map['seller'] as bool,
+    );
   }
 
   String toJson() => json.encode(toMap());
 
-  static UserModel? fromJson(String source) =>
-      UserModel.fromMap(json.decode(source));
+  factory UserModel.fromJson(String source) =>
+      UserModel.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  @override
+  String toString() =>
+      'UserModel(email: $email, profilePic: $profilePic, seller: $seller)';
+
+  @override
+  bool operator ==(covariant UserModel other) {
+    if (identical(this, other)) return true;
+
+    return other.email == email &&
+        other.profilePic == profilePic &&
+        other.seller == seller;
+  }
+
+  @override
+  int get hashCode => email.hashCode ^ profilePic.hashCode ^ seller.hashCode;
 }

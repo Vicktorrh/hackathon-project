@@ -24,4 +24,7 @@ class AppImages {
   static String search = '$imagePath/search.svg';
   static String heart = '$imagePath/heart.svg';
   static String shoppingcart = '$imagePath/shoppingcart.svg';
+  static String discount = '$imagePath/discount.png';
+  static String deal = '$imagePath/deal.png';
+  static String clock = '$imagePath/clock.png';
 }

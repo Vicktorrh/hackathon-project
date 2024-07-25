@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
@@ -16,7 +17,7 @@ class AppUpload {
       var downloadUrl = await storageref.ref.getDownloadURL();
       return downloadUrl;
     } on FirebaseException catch (e) {
-      print(e.message);
+      log(e.message.toString());
       return null;
     }
   }

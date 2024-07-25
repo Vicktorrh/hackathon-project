@@ -5,7 +5,9 @@ import 'package:hackathanproject/constant/app_color.dart';
 import 'package:hackathanproject/constant/app_image.dart';
 import 'package:hackathanproject/features/create_account/create_account.dart';
 import 'package:hackathanproject/features/forgot_password/forgot_password.dart';
+import 'package:hackathanproject/global_widget/loading.dart';
 import 'package:hackathanproject/text_styles/text_styles.dart';
+import 'package:hackathanproject/widget/button_nav.dart';
 
 class WelcomeBack extends StatefulWidget {
   const WelcomeBack({super.key});
@@ -22,165 +24,183 @@ class _WelcomeBackState extends State<WelcomeBack> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 80),
-              Text(
-                'Welcome \nBack!',
-                style: AppTextStyle.body(size: 40),
-              ),
-              SizedBox(height: 25),
-              Form(
-                key: _formKey,
+      body: isLoading
+          ? const Loading()
+          : SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AppTextField(
-                      controller: emailController,
-                      hintText: 'Username or Email',
-                      isUsername: true,
-                      validator: (data) {
-                        if (data == null || data.isEmpty) {
-                          return 'Please input your email';
-                        } else if (!emailController.text.contains('@') ||
-                            !emailController.text.contains('.')) {
-                          return 'The email is not valid';
-                        } else {
-                          return null;
-                        }
-                      },
+                    const SizedBox(height: 80),
+                    Text(
+                      'Welcome \nBack!',
+                      style: AppTextStyle.body(size: 40),
                     ),
-                    SizedBox(height: 30),
-                    AppTextField(
-                      controller: passwordController,
-                      hintText: 'Password',
-                      isPassword: true,
-                      validator: (data) {
-                        if (data == null || data.isEmpty) {
-                          return 'Please input your password';
-                        } else {
-                          return null;
+                    const SizedBox(height: 25),
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          AppTextField(
+                            controller: emailController,
+                            hintText: 'Username or Email',
+                            isUsername: true,
+                            validator: (data) {
+                              if (data == null || data.isEmpty) {
+                                return 'Please input your email';
+                              } else if (!emailController.text.contains('@') ||
+                                  !emailController.text.contains('.')) {
+                                return 'The email is not valid';
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
+                          const SizedBox(height: 30),
+                          AppTextField(
+                            controller: passwordController,
+                            hintText: 'Password',
+                            isPassword: true,
+                            validator: (data) {
+                              if (data == null || data.isEmpty) {
+                                return 'Please input your password';
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const ForgotPassword()));
+                        },
+                        child: Text(
+                          'Forgot Password?',
+                          style: AppTextStyle.body(
+                              color: AppColor.primaryColor, size: 12),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 50),
+                    AppButton(
+                      onTap: () async {
+                        if (_formKey.currentState!.validate()) {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          var user = await AuthService()
+                              .signInWithEmailAndPassword(
+                                  context,
+                                  emailController.text,
+                                  passwordController.text);
+
+                          setState(() {
+                            isLoading = false;
+                          });
+                          print(user);
+
+                          if (user != null) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Home()));
+                          }
                         }
                       },
+                      text: 'Login',
+                    ),
+                    const SizedBox(height: 80),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        '- OR Continue with -',
+                        style: AppTextStyle.body(size: 12),
+                      ),
+                    ),
+                    const SizedBox(height: 15),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () async {
+                            await AuthService()
+                                .signInWithEmailProvider(context);
+                          },
+                          child: Container(
+                            height: 50,
+                            width: 50,
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: AppColor.primaryColor),
+                                color: const Color.fromARGB(255, 222, 211, 214),
+                                image: DecorationImage(
+                                    image: AssetImage(AppImages.google)),
+                                shape: BoxShape.circle),
+                          ),
+                        ),
+                        const SizedBox(width: 9),
+                        Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: AppColor.primaryColor),
+                              color: const Color.fromARGB(255, 222, 211, 214),
+                              image: DecorationImage(
+                                  image: AssetImage(AppImages.apple)),
+                              shape: BoxShape.circle),
+                        ),
+                        const SizedBox(width: 9),
+                        Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: AppColor.primaryColor),
+                              color: const Color.fromARGB(255, 222, 211, 214),
+                              image: DecorationImage(
+                                  image: AssetImage(AppImages.facebook)),
+                              shape: BoxShape.circle),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Center(
+                      child: Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                                text: 'Create An Account',
+                                style: AppTextStyle.body(size: 14)),
+                            TextSpan(
+                              text: ' Sign Up',
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const CreateAccount()));
+                                },
+                              style: AppTextStyle.body(
+                                  color: AppColor.primaryColor, size: 14),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 10),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ForgotPassword()));
-                  },
-                  child: Text(
-                    'Forgot Password?',
-                    style: AppTextStyle.body(
-                        color: AppColor.primaryColor, size: 12),
-                  ),
-                ),
-              ),
-              SizedBox(height: 50),
-              AppButton(
-                onTap: () async {
-                  if (_formKey.currentState!.validate()) {
-                    setState(() {
-                      isLoading = true;
-                    });
-                    await AuthService().signInWithEmailAndPassword(
-                        context, emailController.text, passwordController.text);
-                    setState(() {
-                      isLoading = false;
-                    });
-                  }
-                },
-                text: 'Login',
-              ),
-              SizedBox(height: 80),
-              Align(
-                alignment: Alignment.center,
-                child: Text(
-                  '- OR Continue with -',
-                  style: AppTextStyle.body(size: 12),
-                ),
-              ),
-              SizedBox(height: 15),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () async {
-                      await AuthService().signInWithEmailProvider(context);
-                    },
-                    child: Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: AppColor.primaryColor),
-                          color: Color.fromARGB(255, 222, 211, 214),
-                          image: DecorationImage(
-                              image: AssetImage(AppImages.google)),
-                          shape: BoxShape.circle),
-                    ),
-                  ),
-                  SizedBox(width: 9),
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                        border: Border.all(color: AppColor.primaryColor),
-                        color: Color.fromARGB(255, 222, 211, 214),
-                        image:
-                            DecorationImage(image: AssetImage(AppImages.apple)),
-                        shape: BoxShape.circle),
-                  ),
-                  SizedBox(width: 9),
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                        border: Border.all(color: AppColor.primaryColor),
-                        color: Color.fromARGB(255, 222, 211, 214),
-                        image: DecorationImage(
-                            image: AssetImage(AppImages.facebook)),
-                        shape: BoxShape.circle),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
-              Center(
-                child: Text.rich(
-                  TextSpan(
-                    children: [
-                      TextSpan(
-                          text: 'Create An Account',
-                          style: AppTextStyle.body(size: 14)),
-                      TextSpan(
-                        text: ' Sign Up',
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => CreateAccount()));
-                          },
-                        style: AppTextStyle.body(
-                            color: AppColor.primaryColor, size: 14),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }
@@ -251,11 +271,11 @@ class _AppTextFieldState extends State<AppTextField> {
                 AppTextStyle.body(size: 12, fontWeight: FontWeight.normal),
             hintText: widget.hintText,
             prefixIcon: widget.isPassword
-                ? Icon(Icons.lock)
+                ? const Icon(Icons.lock)
                 : widget.isUsername
-                    ? Icon(Icons.person_rounded)
+                    ? const Icon(Icons.person_rounded)
                     : widget.isEmail
-                        ? Icon(Icons.email)
+                        ? const Icon(Icons.email)
                         : null,
             suffixIcon: widget.isPassword
                 ? GestureDetector(
@@ -269,10 +289,10 @@ class _AppTextFieldState extends State<AppTextField> {
                         : Icons.visibility_off_outlined),
                   )
                 : null,
-            contentPadding: EdgeInsets.only(left: 20),
-            fillColor: Color.fromARGB(255, 243, 242, 242),
+            contentPadding: const EdgeInsets.only(left: 20),
+            fillColor: const Color.fromARGB(255, 243, 242, 242),
             filled: true,
-            border: OutlineInputBorder(
+            border: const OutlineInputBorder(
                 borderSide:
                     BorderSide(color: Color.fromARGB(255, 199, 196, 196)),
                 borderRadius: BorderRadius.all(Radius.circular(10)))),

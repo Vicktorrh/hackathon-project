@@ -10,7 +10,7 @@ class AddCategoryEndpoint {
   Future addCategory(
       String categoryName, String categoryDescription, File image) async {
     try {
-      String id = Uuid().v4();
+      String id = const Uuid().v4();
       var url = await AppUpload.uploadImages('category', image, id);
       if (url != null) {
         firebaseFirestore.collection('category').doc(id).set({
@@ -19,9 +19,7 @@ class AddCategoryEndpoint {
           'categoryUrl': url
         });
       }
-    } on FirebaseException catch (e) {
-      print(e.message);
-    }
+    } on FirebaseException catch (e) {}
   }
 }
 
@@ -30,19 +28,17 @@ class AddProductsEndpoint {
   Future addProducts(String productName, String productDescription,
       String price, File image, String productCategory) async {
     try {
-      String id = Uuid().v4();
+      String id = const Uuid().v4();
       var url = await AppUpload.uploadImages('product', image, id);
       if (url != null) {
         firebaseFirestore.collection('product').doc(id).set({
           'productName': productName,
           'productDescription': productDescription,
-          'price': price,
+          'price': int.tryParse(price),
           'productCategory': productCategory,
           'productUrl': url
         });
       }
-    } on FirebaseException catch (e) {
-      print(e.message);
-    }
+    } on FirebaseException catch (e) {}
   }
 }

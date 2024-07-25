@@ -23,9 +23,9 @@ class ImageWidget extends StatelessWidget {
             imageUrl: imagePath,
             width: width,
             height: height,
-            errorWidget: (context, url, error) => Icon(Icons.error),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
             progressIndicatorBuilder: (context, url, progress) =>
-                Icon(Icons.image),
+                const Icon(Icons.image),
           )
         : imagePath.getimageType() == imageType.svg
             ? SvgPicture.asset(

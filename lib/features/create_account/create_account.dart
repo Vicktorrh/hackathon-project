@@ -28,19 +28,19 @@ class _CreateAccountState extends State<CreateAccount> {
     return Scaffold(
       body: Consumer<AuthProvider>(builder: (context, authProvider, _) {
         return isLoading
-            ? Loading()
+            ? const Loading()
             : SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 80),
+                      const SizedBox(height: 80),
                       Text(
                         'Create an \naccount',
                         style: AppTextStyle.body(size: 40),
                       ),
-                      SizedBox(height: 50),
+                      const SizedBox(height: 50),
                       Form(
                         key: _formKey,
                         child: Column(
@@ -59,7 +59,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                 }
                               },
                             ),
-                            SizedBox(height: 30),
+                            const SizedBox(height: 30),
                             AppTextField(
                               controller: passwordController,
                               hintText: 'Password',
@@ -74,7 +74,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                 }
                               },
                             ),
-                            SizedBox(height: 30),
+                            const SizedBox(height: 30),
                             AppTextField(
                                 controller: confirmpasswordController,
                                 hintText: 'Confirm Password',
@@ -91,7 +91,7 @@ class _CreateAccountState extends State<CreateAccount> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 15),
+                      const SizedBox(height: 15),
                       Text.rich(
                         TextSpan(
                           children: [
@@ -110,7 +110,7 @@ class _CreateAccountState extends State<CreateAccount> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 40),
+                      const SizedBox(height: 40),
                       AppButton(
                           text: 'Create Account',
                           onTap: () async {
@@ -127,7 +127,7 @@ class _CreateAccountState extends State<CreateAccount> {
                               });
                             }
                           }),
-                      SizedBox(height: 40),
+                      const SizedBox(height: 40),
                       Align(
                         alignment: Alignment.center,
                         child: Text(
@@ -135,7 +135,7 @@ class _CreateAccountState extends State<CreateAccount> {
                           style: AppTextStyle.body(size: 12),
                         ),
                       ),
-                      SizedBox(height: 15),
+                      const SizedBox(height: 15),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -150,39 +150,40 @@ class _CreateAccountState extends State<CreateAccount> {
                               decoration: BoxDecoration(
                                   border:
                                       Border.all(color: AppColor.primaryColor),
-                                  color: Color.fromARGB(255, 222, 211, 214),
+                                  color:
+                                      const Color.fromARGB(255, 222, 211, 214),
                                   image: DecorationImage(
                                       image: AssetImage(AppImages.google)),
                                   shape: BoxShape.circle),
                             ),
                           ),
-                          SizedBox(width: 9),
+                          const SizedBox(width: 9),
                           Container(
                             height: 50,
                             width: 50,
                             decoration: BoxDecoration(
                                 border:
                                     Border.all(color: AppColor.primaryColor),
-                                color: Color.fromARGB(255, 222, 211, 214),
+                                color: const Color.fromARGB(255, 222, 211, 214),
                                 image: DecorationImage(
                                     image: AssetImage(AppImages.apple)),
                                 shape: BoxShape.circle),
                           ),
-                          SizedBox(width: 9),
+                          const SizedBox(width: 9),
                           Container(
                             height: 50,
                             width: 50,
                             decoration: BoxDecoration(
                                 border:
                                     Border.all(color: AppColor.primaryColor),
-                                color: Color.fromARGB(255, 222, 211, 214),
+                                color: const Color.fromARGB(255, 222, 211, 214),
                                 image: DecorationImage(
                                     image: AssetImage(AppImages.facebook)),
                                 shape: BoxShape.circle),
                           ),
                         ],
                       ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       Center(
                         child: Text.rich(
                           TextSpan(
@@ -198,7 +199,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                WelcomeBack()));
+                                                const WelcomeBack()));
                                   },
                                 style: AppTextStyle.body(
                                     color: AppColor.primaryColor, size: 14),

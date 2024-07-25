@@ -16,12 +16,12 @@ class SellersPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
               Text(
                 'Welcome to Sellers Page',
                 style: AppTextStyle.body(size: 30),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 children: [
                   SellersPageWidget(
@@ -29,7 +29,7 @@ class SellersPage extends StatelessWidget {
                     image: AppImages.pendingorders,
                     text: 'Pending Orders',
                   ),
-                  SizedBox(width: 60),
+                  const SizedBox(width: 60),
                   SellersPageWidget(
                     onTap: () {},
                     image: AppImages.completedorders,
@@ -37,7 +37,7 @@ class SellersPage extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 children: [
                   SellersPageWidget(
@@ -45,20 +45,20 @@ class SellersPage extends StatelessWidget {
                     image: AppImages.productsuploaded,
                     text: 'Amount of products uploaded',
                   ),
-                  SizedBox(width: 60),
+                  const SizedBox(width: 60),
                   SellersPageWidget(
                     onTap: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => AddProducts()));
+                              builder: (context) => const AddProducts()));
                     },
                     image: AppImages.addproducts,
                     text: 'Add \nProducts',
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 children: [
                   SellersPageWidget(
@@ -66,7 +66,7 @@ class SellersPage extends StatelessWidget {
                     image: AppImages.reviews,
                     text: 'Reviews',
                   ),
-                  SizedBox(width: 60),
+                  const SizedBox(width: 60),
                   SellersPageWidget(
                       image: AppImages.addproducts,
                       text: 'Add \nCategory',
@@ -74,7 +74,7 @@ class SellersPage extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => AddCategory()));
+                                builder: (context) => const AddCategory()));
                       })
                 ],
               ),
@@ -109,7 +109,7 @@ class SellersPageWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(20)),
         child: Column(
           children: [
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
             Image(image: AssetImage(image)),
             Text(
               textAlign: TextAlign.center,

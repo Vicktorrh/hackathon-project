@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hackathanproject/apis/add_category_endpoint.dart';
 import 'package:hackathanproject/constant/app_color.dart';
 import 'package:hackathanproject/core/appcore.dart';
@@ -21,7 +22,7 @@ class _AddProductsState extends State<AddProducts> {
   TextEditingController productDescription = TextEditingController();
   TextEditingController price = TextEditingController();
   File? image;
-  String productCategory = 'Bags';
+  String productCategory = 'Men';
   final _formKey = GlobalKey<FormState>();
   bool isLoading = false;
 
@@ -29,18 +30,18 @@ class _AddProductsState extends State<AddProducts> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: isLoading
-          ? Loading()
+          ? const Loading()
           : SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   children: [
-                    SizedBox(height: 50),
+                    const SizedBox(height: 50),
                     Text(
                       'Add Products',
                       style: AppTextStyle.body(size: 30),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     GestureDetector(
                       onTap: () async {
                         showDialog(
@@ -75,7 +76,7 @@ class _AddProductsState extends State<AddProducts> {
                                                   fontWeight: FontWeight.normal,
                                                   size: 14,
                                                   color: AppColor.black))),
-                                      SizedBox(width: 60),
+                                      const SizedBox(width: 60),
                                       ElevatedButton(
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor:
@@ -122,7 +123,7 @@ class _AddProductsState extends State<AddProducts> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 50),
+                    const SizedBox(height: 50),
                     Form(
                       key: _formKey,
                       child: Column(
@@ -143,11 +144,12 @@ class _AddProductsState extends State<AddProducts> {
                                 hintStyle: AppTextStyle.body(
                                     size: 13, fontWeight: FontWeight.normal),
                                 filled: true,
-                                fillColor: Color.fromARGB(255, 243, 242, 242),
+                                fillColor:
+                                    const Color.fromARGB(255, 243, 242, 242),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8))),
                           ),
-                          SizedBox(height: 30),
+                          const SizedBox(height: 30),
                           TextFormField(
                             controller: productDescription,
                             validator: (data) {
@@ -165,26 +167,29 @@ class _AddProductsState extends State<AddProducts> {
                                 hintStyle: AppTextStyle.body(
                                     size: 13, fontWeight: FontWeight.normal),
                                 filled: true,
-                                fillColor: Color.fromARGB(255, 243, 242, 242),
+                                fillColor:
+                                    const Color.fromARGB(255, 243, 242, 242),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8))),
                           ),
-                          SizedBox(height: 30),
+                          const SizedBox(height: 30),
                           DropdownButtonFormField(
                             decoration: InputDecoration(
-                                fillColor: Color.fromARGB(255, 243, 242, 242),
+                                fillColor:
+                                    const Color.fromARGB(255, 243, 242, 242),
                                 border: OutlineInputBorder(
                                     borderSide:
-                                        BorderSide(color: AppColor.grey),
+                                        const BorderSide(color: AppColor.grey),
                                     borderRadius: BorderRadius.circular(8))),
                             value: productCategory,
                             borderRadius: BorderRadius.circular(10),
-                            hint: Text('Please select your product category'),
+                            hint: const Text(
+                                'Please select your product category'),
                             style: AppTextStyle.body(
                                 color: AppColor.black,
                                 fontWeight: FontWeight.normal,
                                 size: 13),
-                            items: ['Accessories', 'Clothing', 'Bags', 'Shoes']
+                            items: ['Men', 'Women', 'Kids', 'Beauty', 'Fashion']
                                 .map((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
@@ -197,9 +202,13 @@ class _AddProductsState extends State<AddProducts> {
                               });
                             },
                           ),
-                          SizedBox(height: 30),
+                          const SizedBox(height: 30),
                           TextFormField(
                             controller: price,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                            keyboardType: TextInputType.number,
                             validator: (data) {
                               if (data == null || data.isEmpty) {
                                 return 'Please input the price';
@@ -214,14 +223,15 @@ class _AddProductsState extends State<AddProducts> {
                                 hintStyle: AppTextStyle.body(
                                     size: 13, fontWeight: FontWeight.normal),
                                 filled: true,
-                                fillColor: Color.fromARGB(255, 243, 242, 242),
+                                fillColor:
+                                    const Color.fromARGB(255, 243, 242, 242),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8))),
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(height: 70),
+                    const SizedBox(height: 70),
                     AppButton(
                         text: 'Submit',
                         onTap: () async {
@@ -231,11 +241,12 @@ class _AddProductsState extends State<AddProducts> {
                                 isLoading = true;
                               });
                               await AddProductsEndpoint().addProducts(
-                                  productName.text,
-                                  productDescription.text,
-                                  productCategory,
-                                  image!,
-                                  price.text);
+                                productName.text,
+                                productDescription.text,
+                                price.text,
+                                image!,
+                                productCategory,
+                              );
                               setState(() {
                                 isLoading = false;
                               });
@@ -244,7 +255,7 @@ class _AddProductsState extends State<AddProducts> {
                             }
                           }
                         }),
-                    SizedBox(height: 70),
+                    const SizedBox(height: 70),
                   ],
                 ),
               ),
