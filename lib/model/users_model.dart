@@ -5,21 +5,24 @@ class UserModel {
   final String email;
   final String profilePic;
   final bool seller;
-  UserModel({
-    required this.email,
-    required this.profilePic,
-    required this.seller,
-  });
+  final int totalPrice;
+  UserModel(
+      {required this.email,
+      required this.profilePic,
+      required this.seller,
+      required this.totalPrice});
 
   UserModel copyWith({
     String? email,
     String? profilePic,
     bool? seller,
+    int? totalPrice,
   }) {
     return UserModel(
       email: email ?? this.email,
       profilePic: profilePic ?? this.profilePic,
       seller: seller ?? this.seller,
+      totalPrice: totalPrice ?? this.totalPrice,
     );
   }
 
@@ -28,6 +31,7 @@ class UserModel {
       'email': email,
       'profilePic': profilePic,
       'seller': seller,
+      "totalPrice": totalPrice,
     };
   }
 
@@ -36,6 +40,7 @@ class UserModel {
       email: map['email'] as String,
       profilePic: map['profilePic'] as String,
       seller: map['seller'] as bool,
+      totalPrice: map['totalPrice'] as int,
     );
   }
 

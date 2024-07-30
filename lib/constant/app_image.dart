@@ -27,4 +27,8 @@ class AppImages {
   static String discount = '$imagePath/discount.png';
   static String deal = '$imagePath/deal.png';
   static String clock = '$imagePath/clock.png';
+  static String mac = '$imagePath/mac.png';
+  static String mask = '$imagePath/mask.png';
+  static String maskg = '$imagePath/maskg.png';
+  static String special = '$imagePath/special.png';
 }

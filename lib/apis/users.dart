@@ -11,7 +11,7 @@ class UserService {
     required String id,
   }) async {
     UserModel userModel =
-        UserModel(email: email, profilePic: '', seller: false);
+        UserModel(email: email, profilePic: '', seller: false, totalPrice: 0);
     try {
       await firebaseFirestore
           .collection('users')

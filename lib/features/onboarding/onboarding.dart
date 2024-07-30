@@ -146,9 +146,17 @@ class SplashScreenWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 320),
-            Text(
-              'Skip',
-              style: AppTextStyle.body(size: 18),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const GetStarted()));
+              },
+              child: Text(
+                'Skip',
+                style: AppTextStyle.body(size: 18),
+              ),
             ),
           ],
         ),

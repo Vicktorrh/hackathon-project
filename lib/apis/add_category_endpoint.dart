@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hackathanproject/apis/upload_image.dart';
 import 'package:uuid/uuid.dart';
@@ -36,7 +35,8 @@ class AddProductsEndpoint {
           'productDescription': productDescription,
           'price': int.tryParse(price),
           'productCategory': productCategory,
-          'productUrl': url
+          'productUrl': url,
+          'productId': id,
         });
       }
     } on FirebaseException catch (e) {}

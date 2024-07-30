@@ -110,10 +110,11 @@ class _WelcomeBackState extends State<WelcomeBack> {
                           print(user);
 
                           if (user != null) {
-                            Navigator.push(
+                            Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Home()));
+                                    builder: (context) => const Home()),
+                                (r) => false);
                           }
                         }
                       },
@@ -256,7 +257,7 @@ class AppTextField extends StatefulWidget {
 }
 
 class _AppTextFieldState extends State<AppTextField> {
-  bool isObscure = false;
+  bool isObscure = true;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
