@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hackathanproject/constant/app_image.dart';
-import 'package:hackathanproject/features/category/beauty_product.dart';
-import 'package:hackathanproject/features/category/fashion.dart';
-import 'package:hackathanproject/features/category/kid_product.dart';
-import 'package:hackathanproject/features/category/men_product.dart';
-import 'package:hackathanproject/features/category/women_product.dart';
+import 'package:hackathanproject/features/category/categories.dart';
 import 'package:hackathanproject/text_styles/text_styles.dart';
 
 class Category extends StatefulWidget {
@@ -58,8 +54,12 @@ class _CategoryState extends State<Category> {
               Divider(),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MenProduct()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CategoriesScreen(
+                                category: 'Men',
+                              )));
                 },
                 child: Row(
                   children: [
@@ -74,8 +74,12 @@ class _CategoryState extends State<Category> {
               Divider(),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => WomenProduct()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CategoriesScreen(
+                                category: 'Women',
+                              )));
                 },
                 child: Row(
                   children: [
@@ -90,8 +94,12 @@ class _CategoryState extends State<Category> {
               Divider(),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => KidProduct()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CategoriesScreen(
+                                category: 'Kids',
+                              )));
                 },
                 child: Row(
                   children: [
@@ -106,8 +114,12 @@ class _CategoryState extends State<Category> {
               Divider(),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => BeautyProduct()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CategoriesScreen(
+                                category: 'Beauty',
+                              )));
                 },
                 child: Row(
                   children: [
@@ -125,7 +137,9 @@ class _CategoryState extends State<Category> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => FashionProduct()));
+                          builder: (context) => CategoriesScreen(
+                                category: 'Fashion',
+                              )));
                 },
                 child: Row(
                   children: [

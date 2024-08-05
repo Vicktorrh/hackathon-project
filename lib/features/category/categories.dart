@@ -8,14 +8,15 @@ import 'package:hackathanproject/constant/app_image.dart';
 import 'package:hackathanproject/features/product/product_description.dart';
 import 'package:hackathanproject/text_styles/text_styles.dart';
 
-class BeautyProduct extends StatefulWidget {
-  const BeautyProduct({super.key});
+class CategoriesScreen extends StatefulWidget {
+  final String category;
+  const CategoriesScreen({super.key, required this.category});
 
   @override
-  State<BeautyProduct> createState() => _BeautyProductState();
+  State<CategoriesScreen> createState() => _CategoriesScreenState();
 }
 
-class _BeautyProductState extends State<BeautyProduct> {
+class _CategoriesScreenState extends State<CategoriesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,12 +65,13 @@ class _BeautyProductState extends State<BeautyProduct> {
                       return Container();
                     } else if (snapshot.hasData) {
                       var listOfDoc = snapshot.data!.docs;
-                      var beautyProducts = listOfDoc
+                      var fashionProducts = listOfDoc
                           .where((element) =>
-                              element.data()['productCategory'] == 'Beauty')
+                              element.data()['productCategory'] ==
+                              widget.category.trim())
                           .toList();
                       return GridView.builder(
-                          itemCount: listOfDoc.length,
+                          itemCount: fashionProducts.length,
                           gridDelegate:
                               SliverGridDelegateWithMaxCrossAxisExtent(
                             mainAxisSpacing: 10,
@@ -78,9 +80,9 @@ class _BeautyProductState extends State<BeautyProduct> {
                             childAspectRatio: 0.6,
                           ),
                           itemBuilder: (context, index) {
-                            var beautyProduct = beautyProducts[index].data();
-                            print(beautyProduct);
-                            List wishlist = beautyProduct['wishlist'];
+                            var fashionProduct = fashionProducts[index].data();
+                            print(fashionProduct);
+                            List wishlist = fashionProduct['wishlist'];
                             return GestureDetector(
                               onTap: () {
                                 Navigator.push(
@@ -88,7 +90,7 @@ class _BeautyProductState extends State<BeautyProduct> {
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             ProductDescription(
-                                              products: beautyProduct,
+                                              products: fashionProduct,
                                             )));
                               },
                               child: Card(
@@ -110,7 +112,7 @@ class _BeautyProductState extends State<BeautyProduct> {
                                               width: double.infinity,
                                               child: CachedNetworkImage(
                                                   fit: BoxFit.cover,
-                                                  imageUrl: beautyProduct[
+                                                  imageUrl: fashionProduct[
                                                       'productUrl'])),
                                           Positioned(
                                             right: 6,
@@ -118,9 +120,9 @@ class _BeautyProductState extends State<BeautyProduct> {
                                             child: GestureDetector(
                                                 onTap: () {
                                                   UserProducts().addtoWishlist(
-                                                      beautyProduct[
+                                                      fashionProduct[
                                                           'productId'],
-                                                      beautyProduct);
+                                                      fashionProduct);
                                                 },
                                                 child: wishlist.contains(
                                                         FirebaseAuth.instance
@@ -141,12 +143,12 @@ class _BeautyProductState extends State<BeautyProduct> {
                                         child: Column(
                                           children: [
                                             Text(
-                                              beautyProduct['productName'],
+                                              fashionProduct['productName'],
                                               style:
                                                   AppTextStyle.body(size: 16),
                                             ),
                                             Text(
-                                                beautyProduct[
+                                                fashionProduct[
                                                     'productDescription'],
                                                 style: AppTextStyle.body(
                                                     size: 13,
@@ -156,7 +158,7 @@ class _BeautyProductState extends State<BeautyProduct> {
                                             Row(
                                               children: [
                                                 Text(
-                                                    "\$ ${beautyProduct['price'].toString()}",
+                                                    "\$ ${fashionProduct['price'].toString()}",
                                                     style: AppTextStyle.body(
                                                         size: 14)),
                                               ],

@@ -250,6 +250,14 @@ class _AddProductsState extends State<AddProducts> {
                               setState(() {
                                 isLoading = false;
                               });
+                              AppSnackBar.success(
+                                  context, 'Product Added Successfully');
+                              productName.clear();
+                              productDescription.clear();
+                              price.clear();
+                              setState(() {
+                                image = null;
+                              });
                             } else {
                               AppSnackBar.error(context, 'Image is empty');
                             }

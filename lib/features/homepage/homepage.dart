@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hackathanproject/apis/user_products.dart';
 import 'package:hackathanproject/constant/app_color.dart';
 import 'package:hackathanproject/constant/app_image.dart';
+import 'package:hackathanproject/features/category/categories.dart';
 import 'package:hackathanproject/features/product/product_description.dart';
 import 'package:hackathanproject/features/product/product_shop.dart';
 import 'package:hackathanproject/text_styles/text_styles.dart';
@@ -37,20 +38,7 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               SizedBox(height: 35),
-              Card(
-                elevation: 1,
-                child: TextField(
-                  decoration: InputDecoration(
-                      hintText: 'Search any product',
-                      hintStyle: AppTextStyle.body(
-                          size: 14, fontWeight: FontWeight.normal),
-                      prefixIcon: Icon(Icons.search_rounded),
-                      suffixIcon: Icon(Icons.mic_none_rounded),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(8))),
-                ),
-              ),
+              SearchWidget(),
               SizedBox(height: 20),
               Row(
                 children: [
@@ -121,18 +109,29 @@ class _HomePageState extends State<HomePage> {
                             itemBuilder: (context, index) {
                               var doc = listOfDoc![index].data();
                               print(doc);
-                              return Container(
-                                height: 100,
-                                width: 75,
-                                child: Column(
-                                  children: [
-                                    CircleAvatar(
-                                        radius: 30,
-                                        backgroundImage:
-                                            CachedNetworkImageProvider(
-                                                doc['categoryUrl'])),
-                                    Text(doc['categoryName']),
-                                  ],
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              CategoriesScreen(
+                                                category: doc['categoryName'],
+                                              )));
+                                },
+                                child: Container(
+                                  height: 100,
+                                  width: 75,
+                                  child: Column(
+                                    children: [
+                                      CircleAvatar(
+                                          radius: 30,
+                                          backgroundImage:
+                                              CachedNetworkImageProvider(
+                                                  doc['categoryUrl'])),
+                                      Text(doc['categoryName']),
+                                    ],
+                                  ),
                                 ),
                               );
                             });
@@ -648,6 +647,30 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class SearchWidget extends StatelessWidget {
+  const SearchWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 1,
+      child: TextField(
+        decoration: InputDecoration(
+            hintText: 'Search any product',
+            hintStyle:
+                AppTextStyle.body(size: 14, fontWeight: FontWeight.normal),
+            prefixIcon: Icon(Icons.search_rounded),
+            suffixIcon: Icon(Icons.mic_none_rounded),
+            border: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.circular(8))),
       ),
     );
   }

@@ -4,6 +4,9 @@ import 'package:hackathanproject/features/homepage/homepage.dart';
 import 'package:hackathanproject/features/product/product_shop.dart';
 import 'package:hackathanproject/features/welcome_back/welcome_back.dart';
 import 'package:hackathanproject/text_styles/text_styles.dart';
+import 'package:hackathanproject/widget/button_nav.dart';
+import 'package:hackathanproject/widget/nav_provider.dart';
+import 'package:provider/provider.dart';
 
 class OrderConfirmation extends StatefulWidget {
   const OrderConfirmation({super.key});
@@ -65,8 +68,10 @@ class _OrderConfirmationState extends State<OrderConfirmation> {
               SizedBox(height: 20),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomePage()));
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => Home()));
+
+                  context.read<NavProvider>().updateCurrentIndex(0);
                 },
                 child: Text('Check out more products',
                     style: AppTextStyle.body(
