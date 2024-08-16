@@ -19,12 +19,34 @@ class Checkout extends StatefulWidget {
 }
 
 class _CheckoutState extends State<Checkout> {
+  Map<String, dynamic>? user;
   TextEditingController cvv = TextEditingController();
   TextEditingController name = TextEditingController();
   TextEditingController cardNumber = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
   bool isLoading = false;
+
+  @override
+  void initState() {
+    getUserDetail();
+    super.initState();
+  }
+
+  getUserDetail() async {
+    print("start");
+    var doc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+
+    var data = doc.data();
+    print(data);
+    setState(() {
+      user = data;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,7 +136,11 @@ class _CheckoutState extends State<Checkout> {
                                         size: 12)),
                               ),
                               SizedBox(height: 10),
-                              TextField(
+                              TextFormField(
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
+                                keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(8)),
@@ -238,7 +264,7 @@ class _CheckoutState extends State<Checkout> {
                                   ),
                                   Spacer(),
                                   Text(
-                                    "\$ ${5000}",
+                                    "\$ ${user?['totalPrice'] ?? 0}",
                                     style: AppTextStyle.body(
                                         size: 16,
                                         fontWeight: FontWeight.normal,
@@ -258,7 +284,7 @@ class _CheckoutState extends State<Checkout> {
                                   ),
                                   Spacer(),
                                   Text(
-                                    '\$ ${100}',
+                                    '\$ ${10}',
                                     style: AppTextStyle.body(
                                         fontWeight: FontWeight.normal,
                                         size: 16,
@@ -277,7 +303,7 @@ class _CheckoutState extends State<Checkout> {
                                   ),
                                   Spacer(),
                                   Text(
-                                    '\$ ${10000}',
+                                    '\$  ${(user?['totalPrice'] ?? 0) + 10}',
                                     style: AppTextStyle.body(
                                         fontWeight: FontWeight.normal,
                                         size: 16),

@@ -5,13 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:hackathanproject/apis/user_products.dart';
 import 'package:hackathanproject/constant/app_color.dart';
 import 'package:hackathanproject/constant/app_image.dart';
+import 'package:hackathanproject/core/snackbar.dart';
 import 'package:hackathanproject/features/category/categories.dart';
 import 'package:hackathanproject/features/product/product_description.dart';
 import 'package:hackathanproject/features/product/product_shop.dart';
+import 'package:hackathanproject/model/users_model.dart';
 import 'package:hackathanproject/text_styles/text_styles.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final UserModel user;
+  const HomePage({super.key, required this.user});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -30,8 +33,39 @@ class _HomePageState extends State<HomePage> {
               SizedBox(height: 50),
               Row(
                 children: [
-                  Icon(Icons.menu_rounded),
-                  SizedBox(width: 90),
+                  PopupMenuButton<String>(
+                    icon: Icon(Icons.menu_rounded),
+                    onSelected: (String result) {
+                      switch (result) {
+                        case 'Categories':
+                          print('filter 1 clicked');
+                          break;
+                        case 'Wishlist':
+                          print('filter 2 clicked');
+                          break;
+                        case 'Logout':
+                          print('Clear filters');
+                          break;
+                        default:
+                      }
+                    },
+                    itemBuilder: (BuildContext context) =>
+                        <PopupMenuEntry<String>>[
+                      const PopupMenuItem<String>(
+                        value: 'filter1',
+                        child: Text('Categories'),
+                      ),
+                      const PopupMenuItem<String>(
+                        value: 'filter2',
+                        child: Text('Wishlist'),
+                      ),
+                      const PopupMenuItem<String>(
+                        value: 'clearFilters',
+                        child: Text('Logout'),
+                      ),
+                    ],
+                  ),
+                  SizedBox(width: 70),
                   Image(image: AssetImage(AppImages.smalllogo)),
                   SizedBox(width: 90),
                   Image(image: AssetImage(AppImages.pp))
@@ -47,44 +81,54 @@ class _HomePageState extends State<HomePage> {
                     style: AppTextStyle.body(),
                   ),
                   SizedBox(width: 100),
-                  Container(
-                    height: 25,
-                    width: 65,
-                    decoration: BoxDecoration(
-                        color: AppColor.white,
-                        borderRadius: BorderRadius.circular(8)),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                      child: Row(
-                        children: [
-                          Text(
-                            'Sort',
-                            style: AppTextStyle.body(
-                                size: 13, fontWeight: FontWeight.normal),
-                          ),
-                          Icon(Icons.compare_arrows_rounded)
-                        ],
+                  GestureDetector(
+                    onTap: () {
+                      AppSnackBar.error(context, 'Not Implemented Yet');
+                    },
+                    child: Container(
+                      height: 25,
+                      width: 65,
+                      decoration: BoxDecoration(
+                          color: AppColor.white,
+                          borderRadius: BorderRadius.circular(8)),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Sort',
+                              style: AppTextStyle.body(
+                                  size: 13, fontWeight: FontWeight.normal),
+                            ),
+                            Icon(Icons.compare_arrows_rounded)
+                          ],
+                        ),
                       ),
                     ),
                   ),
                   SizedBox(width: 20),
-                  Container(
-                    height: 25,
-                    width: 70,
-                    decoration: BoxDecoration(
-                        color: AppColor.white,
-                        borderRadius: BorderRadius.circular(8)),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                      child: Row(
-                        children: [
-                          Text(
-                            'Filter',
-                            style: AppTextStyle.body(
-                                size: 13, fontWeight: FontWeight.normal),
-                          ),
-                          Icon(Icons.filter_alt_outlined)
-                        ],
+                  GestureDetector(
+                    onTap: () {
+                      AppSnackBar.error(context, 'Not Implemented Yet');
+                    },
+                    child: Container(
+                      height: 25,
+                      width: 70,
+                      decoration: BoxDecoration(
+                          color: AppColor.white,
+                          borderRadius: BorderRadius.circular(8)),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Filter',
+                              style: AppTextStyle.body(
+                                  size: 13, fontWeight: FontWeight.normal),
+                            ),
+                            Icon(Icons.filter_alt_outlined)
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -116,6 +160,7 @@ class _HomePageState extends State<HomePage> {
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               CategoriesScreen(
+                                                user: widget.user,
                                                 category: doc['categoryName'],
                                               )));
                                 },
@@ -140,12 +185,21 @@ class _HomePageState extends State<HomePage> {
                       }
                     }),
               ),
-              Container(
-                  child: Image(
-                image: AssetImage(AppImages.discount),
-                width: double.infinity,
-                fit: BoxFit.cover,
-              )),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ProductShop(user: widget.user)));
+                },
+                child: Container(
+                    child: Image(
+                  image: AssetImage(AppImages.discount),
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                )),
+              ),
               SizedBox(height: 20),
               Container(
                 height: 60,
@@ -195,7 +249,9 @@ class _HomePageState extends State<HomePage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ProductShop()));
+                                    builder: (context) => ProductShop(
+                                          user: widget.user,
+                                        )));
                           },
                           child: Row(
                             children: [
@@ -254,7 +310,9 @@ class _HomePageState extends State<HomePage> {
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 ProductDescription(
-                                                    products: menProduct)));
+                                                  products: menProduct,
+                                                  user: widget.user,
+                                                )));
                                   },
                                   child: Card(
                                     child: Container(
@@ -411,7 +469,9 @@ class _HomePageState extends State<HomePage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ProductShop()));
+                                    builder: (context) => ProductShop(
+                                          user: widget.user,
+                                        )));
                           },
                           child: Row(
                             children: [
@@ -470,7 +530,8 @@ class _HomePageState extends State<HomePage> {
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 ProductDescription(
-                                                    products: womenProduct)));
+                                                    products: womenProduct,
+                                                    user: widget.user)));
                                   },
                                   child: Card(
                                     child: Container(
@@ -589,7 +650,9 @@ class _HomePageState extends State<HomePage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ProductShop()));
+                                    builder: (context) => ProductShop(
+                                          user: widget.user,
+                                        )));
                           },
                           child: Row(
                             children: [

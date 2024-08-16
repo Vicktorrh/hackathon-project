@@ -13,8 +13,8 @@ class NavProvider extends ChangeNotifier {
   List<Widget> screens(UserModel? user) {
     if (user != null && user.seller) {
       return [
-        HomePage(),
-        Wishlist(),
+        HomePage(user: user),
+        Wishlist(user: user),
         Cart(
           user: user,
         ),
@@ -23,13 +23,17 @@ class NavProvider extends ChangeNotifier {
       ];
     } else {
       return [
-        HomePage(),
-        Wishlist(),
+        HomePage(
+          user: user!,
+        ),
+        Wishlist(
+          user: user,
+        ),
         Cart(
             user: user! ??
                 UserModel(
                     email: '', profilePic: '', seller: false, totalPrice: 0)),
-        Category(),
+        Category(user: user),
         Settings()
       ];
     }

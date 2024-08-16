@@ -5,13 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:hackathanproject/apis/user_products.dart';
 import 'package:hackathanproject/constant/app_color.dart';
 import 'package:hackathanproject/features/checkout/checkout.dart';
+import 'package:hackathanproject/model/users_model.dart';
 import 'package:hackathanproject/text_styles/text_styles.dart';
 import 'package:hackathanproject/widget/nav_provider.dart';
 import 'package:provider/provider.dart';
 
 class ProductDescription extends StatefulWidget {
   final Map<String, dynamic> products;
-  const ProductDescription({super.key, required this.products});
+  final UserModel user;
+  const ProductDescription(
+      {super.key, required this.products, required this.user});
 
   @override
   State<ProductDescription> createState() => _ProductDescriptionState();

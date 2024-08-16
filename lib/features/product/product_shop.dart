@@ -6,10 +6,12 @@ import 'package:hackathanproject/apis/user_products.dart';
 import 'package:hackathanproject/constant/app_color.dart';
 import 'package:hackathanproject/constant/app_image.dart';
 import 'package:hackathanproject/features/product/product_description.dart';
+import 'package:hackathanproject/model/users_model.dart';
 import 'package:hackathanproject/text_styles/text_styles.dart';
 
 class ProductShop extends StatefulWidget {
-  const ProductShop({super.key});
+  final UserModel user;
+  const ProductShop({super.key, required this.user});
 
   @override
   State<ProductShop> createState() => _ProductShopState();
@@ -27,7 +29,11 @@ class _ProductShopState extends State<ProductShop> {
             SizedBox(height: 50),
             Row(
               children: [
-                Icon(Icons.menu_rounded),
+                GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Icon(Icons.arrow_back)),
                 SizedBox(width: 90),
                 Image(image: AssetImage(AppImages.smalllogo)),
                 SizedBox(width: 90),
@@ -79,8 +85,8 @@ class _ProductShopState extends State<ProductShop> {
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             ProductDescription(
-                                              products: product,
-                                            )));
+                                                products: product,
+                                                user: widget.user)));
                               },
                               child: Card(
                                 shape: RoundedRectangleBorder(

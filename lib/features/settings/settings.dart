@@ -3,6 +3,8 @@ import 'package:hackathanproject/apis/auth.dart';
 import 'package:hackathanproject/constant/app_color.dart';
 import 'package:hackathanproject/features/welcome_back/welcome_back.dart';
 import 'package:hackathanproject/text_styles/text_styles.dart';
+import 'package:hackathanproject/widget/nav_provider.dart';
+import 'package:provider/provider.dart';
 
 class Settings extends StatelessWidget {
   const Settings({super.key});
@@ -128,6 +130,7 @@ class Settings extends StatelessWidget {
                   text: 'Logout',
                   onTap: () {
                     AuthService().logout(context);
+                    context.read<NavProvider>().updateCurrentIndex(0);
                   }),
             ],
           ),

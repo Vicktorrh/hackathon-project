@@ -6,11 +6,14 @@ import 'package:hackathanproject/apis/user_products.dart';
 import 'package:hackathanproject/constant/app_color.dart';
 import 'package:hackathanproject/constant/app_image.dart';
 import 'package:hackathanproject/features/product/product_description.dart';
+import 'package:hackathanproject/model/users_model.dart';
 import 'package:hackathanproject/text_styles/text_styles.dart';
 
 class CategoriesScreen extends StatefulWidget {
+  final UserModel user;
   final String category;
-  const CategoriesScreen({super.key, required this.category});
+  const CategoriesScreen(
+      {super.key, required this.category, required this.user});
 
   @override
   State<CategoriesScreen> createState() => _CategoriesScreenState();
@@ -91,6 +94,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                         builder: (context) =>
                                             ProductDescription(
                                               products: fashionProduct,
+                                              user: widget.user,
                                             )));
                               },
                               child: Card(

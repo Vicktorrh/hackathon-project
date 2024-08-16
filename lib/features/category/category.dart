@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hackathanproject/constant/app_image.dart';
 import 'package:hackathanproject/features/category/categories.dart';
+import 'package:hackathanproject/model/users_model.dart';
 import 'package:hackathanproject/text_styles/text_styles.dart';
 
 class Category extends StatefulWidget {
-  const Category({super.key});
+  final UserModel user;
+  const Category({super.key, required this.user});
 
   @override
   State<Category> createState() => _CategoryState();
@@ -58,6 +60,7 @@ class _CategoryState extends State<Category> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => CategoriesScreen(
+                                user: widget.user,
                                 category: 'Men',
                               )));
                 },
@@ -78,6 +81,7 @@ class _CategoryState extends State<Category> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => CategoriesScreen(
+                                user: widget.user,
                                 category: 'Women',
                               )));
                 },
@@ -98,6 +102,7 @@ class _CategoryState extends State<Category> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => CategoriesScreen(
+                                user: widget.user,
                                 category: 'Kids',
                               )));
                 },
@@ -118,6 +123,7 @@ class _CategoryState extends State<Category> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => CategoriesScreen(
+                                user: widget.user,
                                 category: 'Beauty',
                               )));
                 },
@@ -138,6 +144,7 @@ class _CategoryState extends State<Category> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => CategoriesScreen(
+                                user: widget.user,
                                 category: 'Fashion',
                               )));
                 },

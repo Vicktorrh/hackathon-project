@@ -84,8 +84,9 @@ class _CartState extends State<Cart> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) =>
-                                                ProductShop()));
+                                            builder: (context) => ProductShop(
+                                                  user: widget.user,
+                                                )));
                                   }),
                             ],
                           ),

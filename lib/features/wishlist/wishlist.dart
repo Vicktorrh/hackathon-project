@@ -7,12 +7,14 @@ import 'package:hackathanproject/constant/app_color.dart';
 import 'package:hackathanproject/constant/app_image.dart';
 import 'package:hackathanproject/features/product/product_shop.dart';
 import 'package:hackathanproject/features/welcome_back/welcome_back.dart';
+import 'package:hackathanproject/model/users_model.dart';
 import 'package:hackathanproject/text_styles/text_styles.dart';
 import 'package:hackathanproject/widget/nav_provider.dart';
 import 'package:provider/provider.dart';
 
 class Wishlist extends StatefulWidget {
-  const Wishlist({super.key});
+  final UserModel user;
+  const Wishlist({super.key, required this.user});
 
   @override
   State<Wishlist> createState() => _WishlistState();
@@ -84,8 +86,9 @@ class _WishlistState extends State<Wishlist> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) =>
-                                                ProductShop()));
+                                            builder: (context) => ProductShop(
+                                                  user: widget.user,
+                                                )));
                                   }),
                             ],
                           ),

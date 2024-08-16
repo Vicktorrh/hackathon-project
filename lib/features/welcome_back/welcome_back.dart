@@ -8,6 +8,8 @@ import 'package:hackathanproject/features/forgot_password/forgot_password.dart';
 import 'package:hackathanproject/global_widget/loading.dart';
 import 'package:hackathanproject/text_styles/text_styles.dart';
 import 'package:hackathanproject/widget/button_nav.dart';
+import 'package:hackathanproject/widget/nav_provider.dart';
+import 'package:provider/provider.dart';
 
 class WelcomeBack extends StatefulWidget {
   const WelcomeBack({super.key});
