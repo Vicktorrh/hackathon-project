@@ -2,15 +2,20 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hackathanproject/apis/auth.dart';
 import 'package:hackathanproject/apis/user_products.dart';
 import 'package:hackathanproject/constant/app_color.dart';
 import 'package:hackathanproject/constant/app_image.dart';
 import 'package:hackathanproject/core/snackbar.dart';
 import 'package:hackathanproject/features/category/categories.dart';
+import 'package:hackathanproject/features/category/category.dart';
 import 'package:hackathanproject/features/product/product_description.dart';
 import 'package:hackathanproject/features/product/product_shop.dart';
+import 'package:hackathanproject/features/wishlist/wishlist.dart';
 import 'package:hackathanproject/model/users_model.dart';
 import 'package:hackathanproject/text_styles/text_styles.dart';
+import 'package:hackathanproject/widget/nav_provider.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   final UserModel user;
@@ -38,13 +43,22 @@ class _HomePageState extends State<HomePage> {
                     onSelected: (String result) {
                       switch (result) {
                         case 'Categories':
-                          print('filter 1 clicked');
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Category(
+                                        user: widget.user,
+                                      )));
+
                           break;
                         case 'Wishlist':
-                          print('filter 2 clicked');
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      Wishlist(user: widget.user)));
                           break;
                         case 'Logout':
-                          print('Clear filters');
                           break;
                         default:
                       }
@@ -52,17 +66,20 @@ class _HomePageState extends State<HomePage> {
                     itemBuilder: (BuildContext context) =>
                         <PopupMenuEntry<String>>[
                       const PopupMenuItem<String>(
-                        value: 'filter1',
+                        value: 'Categories',
                         child: Text('Categories'),
                       ),
                       const PopupMenuItem<String>(
-                        value: 'filter2',
+                        value: 'Wishlist',
                         child: Text('Wishlist'),
                       ),
-                      const PopupMenuItem<String>(
-                        value: 'clearFilters',
-                        child: Text('Logout'),
-                      ),
+                      PopupMenuItem<String>(
+                          value: 'Logout',
+                          child: Text('Logout'),
+                          onTap: () {
+                            AuthService().logout(context);
+                            context.read<NavProvider>().updateCurrentIndex(0);
+                          }),
                     ],
                   ),
                   SizedBox(width: 70),

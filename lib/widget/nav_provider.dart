@@ -30,7 +30,7 @@ class NavProvider extends ChangeNotifier {
           user: user,
         ),
         Cart(
-            user: user! ??
+            user: user ??
                 UserModel(
                     email: '', profilePic: '', seller: false, totalPrice: 0)),
         Category(user: user),
